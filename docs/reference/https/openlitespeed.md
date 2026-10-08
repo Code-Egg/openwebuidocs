@@ -52,7 +52,7 @@ networks:
 
 ### Configure the OLS proxy container
 
-1. Download the repository and enter its directory:
+#### Step 1. Download the repository and enter its directory:
 
 Clone the [OpenLiteSpeed proxy Docker Compose project](https://github.com/litespeedtech/ols-proxy-docker-env) and create its environment file:
 
@@ -62,7 +62,7 @@ cd ols-proxy-docker-env
 cp .env.example .env
 ```
 
-2. Open `.env` in a text editor and configure the deployment:
+#### Step 2. Open `.env` in a text editor and configure the deployment:
 
 Edit `.env` and set these values. Use your own domain and an email address for certificate notices:
 
@@ -87,7 +87,7 @@ ACME_EMAIL=admin@example.com
     | `ACME_EMAIL` | Email address used for ACME certificate registration and notifications. |
 
 
-3. Start OpenLiteSpeed:
+#### Step 3. Start OpenLiteSpeed proxy
 
 ```bash
 docker compose up -d
