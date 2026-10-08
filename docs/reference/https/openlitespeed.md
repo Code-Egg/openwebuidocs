@@ -14,11 +14,6 @@ OpenLiteSpeed (OLS) can serve Open WebUI over HTTPS and forward requests to the 
 - Open WebUI running and reachable by the proxy.
 - Docker Engine and the Compose plugin for the Docker Compose method.
 
-:::warning
-
-Do not expose the Open WebUI backend port publicly. Once the proxy is working, allow public traffic only through the ports used by OpenLiteSpeed, typically `80` and `443`.
-
-:::
 
 ## Run the proxy in Docker Compose
 
@@ -57,6 +52,8 @@ networks:
 
 ### Configure the OLS proxy container
 
+1. Download the repository and enter its directory:
+
 Clone the [OpenLiteSpeed proxy Docker Compose project](https://github.com/litespeedtech/ols-proxy-docker-env) and create its environment file:
 
 ```bash
@@ -65,29 +62,43 @@ cd ols-proxy-docker-env
 cp .env.example .env
 ```
 
+2. Open `.env` in a text editor and configure the deployment:
+
 Edit `.env` and set these values. Use your own domain and an email address for certificate notices:
 
 ```dotenv
 OLS_IMAGE=litespeedtech/openlitespeed:latest
 BACKEND_IP=open-webui
 BACKEND_PORT=8080
-DOMAIN=example.com
+DOMAIN=www.example.com
 PROXY_METHOD=context
 PROXY_SOCKET=true
 ACME_EMAIL=admin@example.com
 ```
 
-Start the proxy:
+    | Variable | Description |
+    | --- | --- |
+    | `OLS_IMAGE` | OpenLiteSpeed container image to run. |
+    | `BACKEND_IP` | Backend container name or IP. |
+    | `BACKEND_PORT` | Port on which the application listens inside its container. |
+    | `DOMAIN` | Domain name served by OpenLiteSpeed. |
+    | `PROXY_METHOD` | Method used to configure the OpenLiteSpeed reverse proxy. Supports `context` and `rewrite` values. |
+    | `PROXY_SOCKET` | Enables WebSocket proxying when set to `true`. |
+    | `ACME_EMAIL` | Email address used for ACME certificate registration and notifications. |
+
+
+3. Start OpenLiteSpeed:
 
 ```bash
 docker compose up -d
 ```
 
+
 ## Verify HTTPS
 
-Open `https://example.com` in a browser. Open WebUI should load with a valid certificate. Sign in and send a test prompt to confirm that API requests and streamed responses work through the proxy.
+Open `https://www.example.com` in a browser. Open WebUI should load with a valid certificate. Sign in and send a test prompt to confirm that API requests and streamed responses work through the proxy.
 
-After verification, make sure the backend port is not reachable from the public internet. With Docker, the proxy and backend can communicate over `ls-net` without publishing the backend port to the host. If you need a host port for local access, restrict it to `127.0.0.1` or block public access with your firewall.
+After verification, make sure the backend port is not reachable from the public internet. With Docker, the proxy and backend can communicate over `ls-net` without publishing the backend port to the host. If you need a host port for local access, restrict it to `127.0.0.1` in the compose file or block public access with your firewall.
 
 ## Optional security settings
 
