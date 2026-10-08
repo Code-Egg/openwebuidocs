@@ -5,7 +5,7 @@ title: "HTTPS using OpenLiteSpeed"
 
 # HTTPS Using OpenLiteSpeed
 
-OpenLiteSpeed (OLS) can serve Open WebUI over HTTPS and forward requests to the application running on your server or in Docker. This guide covers running the openlitespeed as a reverse proxy,  auto apply SSL and enable security features in Docker Compose.
+OpenLiteSpeed (OLS) can serve Open WebUI over HTTPS and forward requests to the application running on your server or in Docker. This guide covers running OpenLiteSpeed as a reverse proxy, automatically apply SSL certificates, and enabling security features with Docker Compose.
 
 ## Prerequisites
 
@@ -21,7 +21,7 @@ The OpenLiteSpeed proxy container and Open WebUI container must share a Docker n
 
 ### Create the shared network
 
-Create the external network once:
+Create the external network (once):
 
 ```bash
 docker network inspect ls-net >/dev/null 2>&1 || docker network create ls-net
@@ -87,7 +87,7 @@ ACME_EMAIL=admin@example.com
     | `ACME_EMAIL` | Email address used for ACME certificate registration and notifications. |
 
 
-#### Step 3. Start OpenLiteSpeed proxy
+#### Step 3. Start the OpenLiteSpeed proxy
 
 ```bash
 docker compose up -d
@@ -102,9 +102,9 @@ After verification, make sure the backend port is not reachable from the public 
 
 ## Optional security settings
 
-OpenLiteSpeed docker also offers features such as OWASP protection, CAPTCHA, per-client throttling, access control, realms, and security headers. Configure these through the proxy environment file or the WebAdmin Console as appropriate for your setup. Test each setting with Open WebUI before enabling it in production, since some rules can interfere with legitimate application requests.
+The OpenLiteSpeed Docker setup also offers features such as OWASP protection, CAPTCHA, per-client throttling, access control, realms, and security headers. Configure these through the proxy environment file or the WebAdmin Console as appropriate for your setup. Test each setting with Open WebUI before enabling it in production, since some rules can interfere with legitimate application requests.
 
-Example default security config settings in the .env file
+Example default security settings in the `.env` file
 ```
 ### Global security controls. These apply to every mapped domain and cannot be set in domains.conf.
 THROTTLING=false
