@@ -26,8 +26,7 @@ Modern browsers block microphone access on non-HTTPS origins. **Voice Calls will
 | [**Caddy**](/reference/https/caddy) | Self-hosted production, minimal config | Automatic (Let's Encrypt) |
 | [**HAProxy**](/reference/https/haproxy) | High-availability / load balancing | Manual or Let's Encrypt |
 | **Cloud load balancers** | AWS ALB, GCP LB, Azure App Gateway | Managed by cloud provider |
-| [**OpenLiteSpeed**](/reference/https/openlitespeed) | Self-hosted production, minimal configuration, comprehensive security features
- | Automatic (Let's Encrypt) |
+| [**OpenLiteSpeed**](/reference/https/openlitespeed) | Self-hosted production, minimal configuration, comprehensive security features | Automatic (Let's Encrypt) |
 
 ---
 
